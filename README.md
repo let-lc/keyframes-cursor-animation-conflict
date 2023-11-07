@@ -12,7 +12,7 @@ I wouldn’t have bumped into this problem if I’d just used a GIF. But, I want
 
 # The bug
 
-Head over to this URL to see the bug in action. If you’re looking for more details, feel free to dig into the `index.html` file in this repository.
+Head over to this URL [https://animation-bug.haku.dev/](https://animation-bug.haku.dev/) to see the bug in action. If you’re looking for more details, feel free to dig into the `index.html` file in this repository.
 
 If you take a peek at the `index.html` source code, you’ll see that I’ve used a `*` selector. This slaps an `animation` property onto all elements for the cursor animation. Also, I’ve used a `run` animation along with some other CSS magic to animate the sprite. You can spot this in action in the `div` inside the `button` element.
 
