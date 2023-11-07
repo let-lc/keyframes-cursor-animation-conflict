@@ -77,15 +77,20 @@
   <body
     class="flex h-screen w-screen flex-col items-center justify-center bg-slate-700 text-white"
   >
-    <p class="mb-20 max-w-md text-center">
-      This page demonstrates the css animation conflict when using keyframes to
-      animate sprite assets and cursor at the same time. You can read more on
+    <p class="mb-2 max-w-md text-center">
+      This page demonstrates the CSS animation conflict when using keyframes to
+      animate sprite assets and cursor at the same time. You can read more
       <a
         href="https://github.com/let-lc/keyframes-cursor-animation-conflict/blob/main/README.md"
         class="text-blue-500 underline hover:!cursor-pointer"
         >here</a
       >.
     </p>
+    <p class="mb-12 text-sm bg-white/10 rounded">
+      ⚠ For chrome users, the cursor animation will always stop if your browser
+      window is not focused.
+    </p>
+
     <button
       id="bugged"
       class="group flex select-none items-center gap-x-2 rounded-xl border border-white/50 bg-white/10 px-4 py-2 transition-colors hover:bg-red-400/10"
