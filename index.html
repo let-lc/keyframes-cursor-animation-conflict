@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@keyframes cursor animation conflict</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            animation: {
+              run: "run 700ms steps(7) infinite",
+            },
+            keyframes: {
+              run: {
+                "0%": { "background-position": "0px" },
+                "100%": { "background-position": "-700px" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* `.ani` cursor from http://www.rw-designer.com/cursor-detail/57807 */
+      * {
+        cursor: url(/cursor/frame_1.png), default;
+        -webkit-animation: cursor-default 600ms infinite;
+        animation: cursor-default 600ms infinite;
+      }
+
+      @-webkit-keyframes cursor-default {
+        0% {
+          cursor: url(/cursor/frame_1.png), default;
+        }
+        20% {
+          cursor: url(/cursor/frame_2.png), default;
+        }
+        40% {
+          cursor: url(/cursor/frame_3.png), default;
+        }
+        60% {
+          cursor: url(/cursor/frame_4.png), default;
+        }
+        80% {
+          cursor: url(/cursor/frame_5.png), default;
+        }
+        100% {
+          cursor: url(/cursor/frame_6.png), default;
+        }
+      }
+
+      @keyframes cursor-default {
+        0% {
+          cursor: url(/cursor/frame_1.png), default;
+        }
+        20% {
+          cursor: url(/cursor/frame_2.png), default;
+        }
+        40% {
+          cursor: url(/cursor/frame_3.png), default;
+        }
+        60% {
+          cursor: url(/cursor/frame_4.png), default;
+        }
+        80% {
+          cursor: url(/cursor/frame_5.png), default;
+        }
+        100% {
+          cursor: url(/cursor/frame_6.png), default;
+        }
+      }
+    </style>
+  </head>
+  <!-- Animated Girl Knight Sprite from: https://jumpbutton.itch.io/girlknightasset -->
+  <body
+    class="flex h-screen w-screen flex-col items-center justify-center bg-slate-700 text-white"
+  >
+    <p class="mb-20 max-w-md text-center">
+      This page demonstrates the css animation conflict when using keyframes to
+      animate sprite assets and cursor at the same time. You can read more on
+      <a
+        href="https://github.com/let-lc/keyframes-cursor-animation-conflict/blob/main/README.md"
+        class="text-blue-500 underline hover:!cursor-pointer"
+        >here</a
+      >.
+    </p>
+    <button
+      id="bugged"
+      class="group flex select-none items-center gap-x-2 rounded-xl border border-white/50 bg-white/10 px-4 py-2 transition-colors hover:bg-red-400/10"
+    >
+      <span class="text-lg font-black">HOVER TO RUN</span>
+      <div
+        class="animate-run h-[64px] w-[100px] rounded bg-[url('/Walking_KG_2.png')] bg-[length:700px_64px] bg-left-bottom [animation-play-state:paused] hover:bg-white/10 group-hover:[animation-play-state:running]"
+      ></div>
+    </button>
+    <p class="mb-4 mt-1 text-sm font-medium text-red-500">
+      This is the bugged one. If you hover on the character, the cursor will
+      stop.
+    </p>
+    <button
+      id="hacky-fixed"
+      class="group flex select-none items-center gap-x-2 rounded-xl border border-white/50 bg-white/10 px-4 py-2 transition-colors hover:bg-green-300/20"
+    >
+      <span class="text-lg font-black">HOVER TO RUN</span>
+      <div
+        class="animate-run relative h-[64px] w-[100px] rounded bg-[url('/Walking_KG_2.png')] bg-[length:700px_64px] bg-left-bottom [animation-play-state:paused] hover:bg-white/10 group-hover:[animation-play-state:running]"
+      >
+        <div class="absolute inset-0 z-10">
+          <!-- Overlaying the animated character -->
+        </div>
+      </div>
+    </button>
+    <p class="mb-4 mt-1 text-sm font-medium text-green-400">
+      This is using a hacky fix. If you hover on the character, the animated
+      cursor still works fine.
+    </p>
+  </body>
+</html>
